@@ -10,11 +10,12 @@ rpm-build \
 createrepo \
 yum-utils
 ```
-**Скачиваю пакет с выбранного мной репозитория
-**
+**Скачиваю пакет с выбранного мной репозитория**
+
 ```[root@rpms ~]# wget https://download-ib01.fedoraproject.org/pub/epel/7/SRPMS/Packages/a/alpine-2.24-1.el7.src.rpm```
-**Попытался распаковать
-**
+
+**Попытался распаковать**
+
 ```[root@rpms ~]# rpm -i alpine-2.24-1.el7.src.rpm
 warning: alpine-2.24-1.el7.src.rpm: Header V4 RSA/SHA256 Signature, key ID 352c64e5: NOKEY
 warning: user mockbuild does not exist - using root
