@@ -188,3 +188,25 @@ enabled=1" >> /etc/yum.repos.d/otus.repo
 yum install -y alpine
 ```        
 
+**Проверяем, что alpine установлен**
+
+```
+[root@rpmc ~]# alpine -version
+Alpine 2.24 (LRH 510 2020-10-10) built Tue Aug 3 07:16:04 UTC 2021 on rpms, using patchlevel VERSION=1 created on Sat Oct 10 00:37:40 MDT 2020.
+Alpine was built with the following options:
+CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic
+LDFLAGS=-Wl,-z,relro
+./configure --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu \
+  --program-prefix= --disable-dependency-tracking --prefix=/usr \
+  --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin \
+  --sysconfdir=/etc --datadir=/usr/share --includedir=/usr/include \
+  --libdir=/usr/lib64 --libexecdir=/usr/libexec --localstatedir=/var \
+  --sharedstatedir=/var/lib --mandir=/usr/share/man \
+  --infodir=/usr/share/info --enable-debug=no --without-tcl \
+  --with-c-client-target=lfd --with-smtp-msa=/usr/sbin/sendmail \
+  --with-npa=/usr/bin/inews --with-passfile=.alpine.passfile \
+  --with-simple-spellcheck=hunspell --with-interactive-spellcheck=hunspell \
+  --with-system-pinerc=/etc/pine.conf \
+  --with-system-fixed-pinerc=/etc/pine.conf.fixed \
+  build_alias=x86_64-redhat-linux-gnu host_alias=x86_64-redhat-linux-gnu
+```
