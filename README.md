@@ -32,11 +32,12 @@ warning: group mock does not exist - using root
 ```
 **Заругался на ключи но распаковал**
 
-**Раскоментировал мод для напримера
-**
+**Раскоментировал мод для напримера**
+
 ```sed -i '34 s/#BuildRequires: automake libtool/BuildRequires: automake libtool/' rpmbuild/SPECS/alpine.spec```
-**Установил зависимости
-**
+
+**Установил зависимости**
+
 ```[root@rpms ~]# yum-builddep rpmbuild/SPECS/alpine.spec
 Failed to set locale, defaulting to C
 Loaded plugins: fastestmirror
@@ -58,8 +59,8 @@ Dependency Updated:
 Complete!
 
 ```
-**Сборка RPM пакета
-**
+**Сборка RPM пакета**
+
 ```[root@rpms ~]# rpmbuild -bb rpmbuild/SPECS/alpine.spec
 ...
 + umask 022
@@ -68,15 +69,15 @@ Complete!
 + /usr/bin/rm -rf /root/rpmbuild/BUILDROOT/alpine-2.24-1.el7.x86_64
 + exit 0
 ```
-**Проверяем, что пакеты создались
-**
+**Проверяем, что пакеты создались**
+
 ```[root@rpms ~]# ll rpmbuild/RPMS/x86_64/
 total 8880
 -rw-r--r--. 1 root root 2620552 Jul 18 14:46 alpine-2.24-1.el7.x86_64.rpm
 -rw-r--r--. 1 root root 6470828 Jul 18 14:46 alpine-debuginfo-2.24-1.el7.x86_64.rpm
 ```
-**Устанваливаем пакет локально для проверки
-**
+**Устанваливаем пакет локально для проверки**
+
 ```[root@rpms ~]# yum localinstall -y rpmbuild/RPMS/x86_64/alpine-2.24-1.el7.x86_64.rpm
 ...
 Installed:
@@ -87,8 +88,8 @@ Dependency Installed:
 
 Complete!
 ```
-**Проверяем
-**
+**Проверяем**
+
 ```[root@rpms ~]# alpine -v
 Alpine 2.24 (LRH 510 2020-10-10) built Sun Jul 18 14:42:42 UTC 2021 on rpms, using patchlevel VERSION=1 created on Sat Oct 10 00:37:40 MDT 2020.
 Alpine was built with the following options:
@@ -108,22 +109,22 @@ LDFLAGS=-Wl,-z,relro
   --with-system-fixed-pinerc=/etc/pine.conf.fixed \
   build_alias=x86_64-redhat-linux-gnu host_alias=x86_64-redhat-linux-gnu
 ```
-** Добавляю репозиторий для NGINX
-**
+** Добавляю репозиторий для NGINX**
+
 ```[root@rpms ~]# yum install epel-release```
-**Устанавливаю NGINX
-**
+**Устанавливаю NGINX**
+
 ```[root@rpms ~]# yum install nginx```
-**Запускаю NGINX и добавляю автозагрузку
-**
+**Запускаю NGINX и добавляю автозагрузку**
+
 ```[root@rpms ~]# systemctl start nginx 
 [root@rpms ~]# systemctl enable nginx
 ```
-**Создаём папку для репозитория
-**
+**Создаём папку для репозитория**
+
 ```[root@rpms ~]# mkdir /usr/share/nginx/html/repo```
-**Копируем пакет в созданную папку
-**
+**Копируем пакет в созданную папку**
+
 ```[root@rpms ~]# cp rpmbuild/RPMS/x86_64/alpine-2.24-1.el7.x86_64.rpm /usr/share/nginx/html/repo```
 **Инициализируем репозиторий**
 ```[root@rpms ~]# createrepo /usr/share/nginx/html/repo/
