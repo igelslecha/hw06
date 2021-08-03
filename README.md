@@ -109,24 +109,31 @@ LDFLAGS=-Wl,-z,relro
   --with-system-fixed-pinerc=/etc/pine.conf.fixed \
   build_alias=x86_64-redhat-linux-gnu host_alias=x86_64-redhat-linux-gnu
 ```
-** Добавляю репозиторий для NGINX**
+
+**Добавляю репозиторий для NGINX**
 
 ```[root@rpms ~]# yum install epel-release```
+
 **Устанавливаю NGINX**
 
 ```[root@rpms ~]# yum install nginx```
+
 **Запускаю NGINX и добавляю автозагрузку**
 
 ```[root@rpms ~]# systemctl start nginx 
 [root@rpms ~]# systemctl enable nginx
 ```
+
 **Создаём папку для репозитория**
 
 ```[root@rpms ~]# mkdir /usr/share/nginx/html/repo```
+
 **Копируем пакет в созданную папку**
 
 ```[root@rpms ~]# cp rpmbuild/RPMS/x86_64/alpine-2.24-1.el7.x86_64.rpm /usr/share/nginx/html/repo```
+
 **Инициализируем репозиторий**
+
 ```[root@rpms ~]# createrepo /usr/share/nginx/html/repo/
 Spawning worker 0 with 1 pkgs
 Workers Finished
@@ -136,13 +143,19 @@ Saving other metadata
 Generating sqlite DBs
 Sqlite DBs complete
 ```
+
 **Добавляем настройки в конфигурационный файл NGINX**
+
 ```[root@rpms ~]# sed -i '/\/usr\/share\/nginx\/html;/a autoindex on;' /etc/nginx/nginx.conf
 [root@rpms ~]# sed -i '/\/usr/share/nginx/html;/a index        index.html index.htm;' /etc/nginx/nginx.conf
 ```
+
 **Перезгружаем NGINX**
+
 ```[root@rpms ~]# nginx -s reload```
+
 **Добавляем в репозиторий**
+
 ```touch /etc/yum.repos.d/otus.repo
 echo "[otus]
 name=otus-linux
@@ -150,15 +163,21 @@ baseurl=http://localhost/repo
 gpgcheck=0
 enabled=1" >> /etc/yum.repos.d/otus.repo
 ```
+
 **Проверяем**
+
 ```[root@rpms ~]# yum repolist enabled | grep otus
 Failed to set locale, defaulting to C
 otus                  otus-linux                                              1
 ```
+
 **На клиентской машине удаляем все репозитории**
+
 #rm -f /etc/yum.repos.d/* 
 *Вышла промашка, alpine требует зависимости: mailcap, hunspell, если я закрываю остальные репозитории, то эти программы не подгружаются через мой репозиторий*
+
 **Добавляем наш репозиторий с нашего сервера**
+```
 touch /etc/yum.repos.d/otus.repo
 echo "[otus]
 name=otus-linux
@@ -167,5 +186,5 @@ gpgcheck=0
 enabled=1" >> /etc/yum.repos.d/otus.repo
 **И устанавливаем alpine**
 yum install -y alpine
-        
+```        
 
