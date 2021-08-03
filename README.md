@@ -1,5 +1,5 @@
 # hw06
-**Решил установить взять за основу alpine**
+**Решил взять за основу alpine**
 **Устанавливаю программы для работы с пакетами**
 ```[root@packages ~]# yum install -y \
 redhat-lsb-core \
@@ -140,7 +140,16 @@ Failed to set locale, defaulting to C
 otus                  otus-linux                                              1
 ```
 **На клиентской машине удаляем все репозитории**
-
+#rm -f /etc/yum.repos.d/* 
+*Вышла промашка, alpine требует зависимости: mailcap, hunspell, если я закрываю остальные репозитории, то эти программы не подгружаются через мой репозиторий*
+**Добавляем наш репозиторий с нашего сервера**
+touch /etc/yum.repos.d/otus.repo
+echo "[otus]
+name=otus-linux
+baseurl=http://192.168.50.10/repo
+gpgcheck=0
+enabled=1" >> /etc/yum.repos.d/otus.repo
 **И устанавливаем alpine**
+yum install -y alpine
         
 
